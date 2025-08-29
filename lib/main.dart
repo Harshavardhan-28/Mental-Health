@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'pages/activities_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'widgets/onboarding_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MedicHealthApp());
 }
 
@@ -16,7 +19,7 @@ class MedicHealthApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Roboto',
       ),
-      home: const ActivitiesPage(),
+      home: const OnboardingScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
