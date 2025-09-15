@@ -1,0 +1,79 @@
+{
+  "embedding_examples": [
+    {
+      "text": "during adolescence, identity development becomes a central task",
+      "embedding_preview": [0.0234, -0.0891, 0.1456, 0.0923, -0.0445, "... (3072 dimensions total)"],
+      "embedding_stats": {
+        "dimensions": 3072,
+        "model": "gemini-embedding-004",
+        "magnitude": 1.0,
+        "sparsity": 0.023
+      }
+    },
+    {
+      "text": "cognitive development in early childhood shows remarkable growth",
+      "embedding_preview": [0.0823, 0.0156, -0.0734, 0.1289, 0.0567, "... (3072 dimensions total)"],
+      "embedding_stats": {
+        "dimensions": 3072,
+        "model": "gemini-embedding-004", 
+        "magnitude": 1.0,
+        "sparsity": 0.019
+      }
+    },
+    {
+      "text": "attachment theory explains early emotional bonds between caregivers",
+      "embedding_preview": [-0.0445, 0.0912, 0.0678, -0.0234, 0.1123, "... (3072 dimensions total)"],
+      "embedding_stats": {
+        "dimensions": 3072,
+        "model": "gemini-embedding-004",
+        "magnitude": 1.0,
+        "sparsity": 0.021
+      }
+    }
+  ],
+  "similarity_examples": [
+    {
+      "query": "teenage identity formation", 
+      "most_similar_chunks": [
+        {
+          "text": "during adolescence, identity development becomes a central task",
+          "cosine_similarity": 0.923,
+          "book": "papalia"
+        },
+        {
+          "text": "erikson described identity versus role confusion stage",
+          "cosine_similarity": 0.887,
+          "book": "lifespan"
+        }
+      ]
+    },
+    {
+      "query": "child cognitive abilities",
+      "most_similar_chunks": [
+        {
+          "text": "cognitive development in early childhood shows remarkable growth",
+          "cosine_similarity": 0.891,
+          "book": "santrock"
+        },
+        {
+          "text": "piaget's preoperational stage characterized by symbolic thought",
+          "cosine_similarity": 0.856,
+          "book": "papalia"
+        }
+      ]
+    }
+  ],
+  "technical_details": {
+    "embedding_model": "gemini-embedding-004",
+    "task_type": "RETRIEVAL_DOCUMENT",
+    "output_dimensionality": 3072,
+    "distance_metric": "cosine_similarity",
+    "normalization": "l2_normalized",
+    "typical_similarity_range": {
+      "highly_similar": "0.85 - 1.0",
+      "moderately_similar": "0.65 - 0.85", 
+      "weakly_similar": "0.45 - 0.65",
+      "dissimilar": "0.0 - 0.45"
+    }
+  }
+}

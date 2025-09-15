@@ -1,0 +1,89 @@
+{
+  "sample_chunks": [
+    {
+      "id": "papalia_c45",
+      "text": "during adolescence, identity development becomes a central task as teenagers begin to explore who they are and who they want to become. erik erikson described this period as the identity versus role confusion stage, where young people must develop a sense of personal identity or risk feeling confused about their role in society. this process involves experimenting with different roles, values, and beliefs to form a coherent sense of self.",
+      "metadata": {
+        "book_name": "Human Development by Papalia, Olds & Feldman",
+        "book_short_id": "papalia",
+        "chunk_id": 45,
+        "word_count": 78,
+        "char_count": 485,
+        "chunking_method": "semantic",
+        "topic": "adolescent_identity_development"
+      },
+      "vector_similarity_score": 0.89
+    },
+    {
+      "id": "santrock_c123",
+      "text": "cognitive development in early childhood shows remarkable growth in language acquisition, symbolic thinking, and problem-solving abilities. piaget's preoperational stage, occurring roughly between ages 2 and 7, is characterized by the development of language and symbolic thought. however, children at this stage still struggle with logical reasoning and tend to be egocentric in their thinking patterns.",
+      "metadata": {
+        "book_name": "Life-Span Development by John Santrock",
+        "book_short_id": "santrock", 
+        "chunk_id": 123,
+        "word_count": 64,
+        "char_count": 412,
+        "chunking_method": "semantic",
+        "topic": "cognitive_development_early_childhood"
+      },
+      "vector_similarity_score": 0.92
+    },
+    {
+      "id": "lifespan_c67",
+      "text": "attachment theory, developed by john bowlby and mary ainsworth, explains how early emotional bonds between caregivers and infants affect psychological development throughout life. secure attachment, formed when caregivers are consistently responsive to infant needs, leads to better emotional regulation, social skills, and mental health outcomes in later years. insecure attachment patterns can result from inconsistent or unresponsive caregiving.",
+      "metadata": {
+        "book_name": "Life-Span Human Development",
+        "book_short_id": "lifespan",
+        "chunk_id": 67,
+        "word_count": 71,
+        "char_count": 458,
+        "chunking_method": "semantic",
+        "topic": "attachment_theory"
+      },
+      "vector_similarity_score": 0.94
+    },
+    {
+      "id": "papalia_c89",
+      "text": "moral development progresses through distinct stages according to lawrence kohlberg's theory. the preconventional level focuses on avoiding punishment and gaining rewards, while the conventional level emphasizes conformity to social rules and maintaining relationships. the postconventional level involves abstract reasoning about universal ethical principles, though not everyone reaches this highest stage of moral reasoning.",
+      "metadata": {
+        "book_name": "Human Development by Papalia, Olds & Feldman",
+        "book_short_id": "papalia",
+        "chunk_id": 89,
+        "word_count": 68,
+        "char_count": 431,
+        "chunking_method": "semantic",
+        "topic": "moral_development"
+      },
+      "vector_similarity_score": 0.91
+    },
+    {
+      "id": "santrock_c201",
+      "text": "physical development in middle childhood is characterized by steady growth and improved motor skills. children become more coordinated and can engage in complex physical activities like team sports and organized games. brain development continues with increased myelination, leading to faster processing speeds and better cognitive abilities. health habits established during this period often persist into adulthood.",
+      "metadata": {
+        "book_name": "Life-Span Development by John Santrock",
+        "book_short_id": "santrock",
+        "chunk_id": 201,
+        "word_count": 69,
+        "char_count": 444,
+        "chunking_method": "semantic",
+        "topic": "physical_development_middle_childhood"
+      },
+      "vector_similarity_score": 0.87
+    }
+  ],
+  "metadata": {
+    "total_sample_chunks": 5,
+    "books_represented": 3,
+    "embedding_model": "gemini-embedding-004",
+    "vector_dimensions": 3072,
+    "similarity_threshold": 0.75,
+    "chunk_size_range": "100-1000 characters",
+    "topics_covered": [
+      "adolescent_identity_development",
+      "cognitive_development_early_childhood", 
+      "attachment_theory",
+      "moral_development",
+      "physical_development_middle_childhood"
+    ]
+  }
+}
