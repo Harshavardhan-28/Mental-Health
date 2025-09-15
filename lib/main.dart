@@ -17,6 +17,7 @@ class MedicHealthApp extends StatelessWidget {
       title: 'MedicHealth',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Roboto',
       ),
       home: const OnboardingScreen(),

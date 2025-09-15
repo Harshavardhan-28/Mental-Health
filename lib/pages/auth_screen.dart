@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import 'activities_page.dart';
+import '../widgets/main_navigation_wrapper.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -464,7 +464,7 @@ class _AuthScreenState extends State<AuthScreen> {
     }
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const ActivitiesPage()),
+      MaterialPageRoute(builder: (context) => const MainNavigationWrapper()),
     );
   }
 
