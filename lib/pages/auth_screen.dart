@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
+import '../services/user_service.dart';
 import '../widgets/main_navigation_wrapper.dart';
+import '../theme/calm_theme.dart';
+import 'profile_setup_page.dart';
 
+// Clean auth screen with calming design
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -17,6 +21,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final AuthService _authService = AuthService();
+  final UserService _userService = UserService();
 
   @override
   void initState() {
@@ -26,7 +31,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
+      backgroundColor: CalmTheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -55,78 +60,50 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget _buildHeader() {
     return Column(
       children: [
-        // App logo or title
+        // Spa icon for wellness
         Container(
-          width: 100,
-          height: 100,
+          width: 80,
+          height: 80,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF8B7CF6), Color(0xFF7C3AED), Color(0xFF6D28D9)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(25),
+            color: CalmTheme.sage.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(40),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF8B7CF6).withOpacity(0.3),
+                color: CalmTheme.primaryGreen.withOpacity(0.1),
                 blurRadius: 20,
-                offset: const Offset(0, 10),
-              ),
-              BoxShadow(
-                color: Colors.black.withOpacity(0.08),
-                blurRadius: 6,
-                offset: const Offset(0, 2),
+                offset: const Offset(0, 4),
               ),
             ],
           ),
-          child: const Center(
-            child: Icon(
-              Icons.favorite,
-              size: 48,
-              color: Colors.white,
-            ),
+          child: Icon(
+            Icons.spa,
+            size: 40,
+            color: CalmTheme.primaryGreen,
           ),
         ),
         const SizedBox(height: 24),
-        // Creative MedicHealth text
-        RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: 'Medic',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF8B7CF6),
-                ),
-              ),
-              TextSpan(
-                text: 'Health',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w300,
-                  color: Colors.black87,
-                  letterSpacing: 1.5,
-                ),
-              ),
-            ],
+        // Calming app title
+        Text(
+          'MindEase',
+          style: CalmTheme.displayLarge.copyWith(
+            color: CalmTheme.primaryGreen,
           ),
         ),
         const SizedBox(height: 12),
         Text(
-          isSignInView ? 'Welcome Back' : 'Create Your Account',
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
+          isSignInView ? 'Welcome Back' : 'Join Us',
+          style: CalmTheme.headingLarge.copyWith(
+            color: CalmTheme.textPrimary,
           ),
         ),
         const SizedBox(height: 8),
         Text(
           isSignInView
-              ? 'Sign in to continue your wellness journey'
-              : 'Join thousands taking care of their mental health',
-          style: const TextStyle(fontSize: 16, color: Colors.grey),
+              ? 'Continue your wellness journey'
+              : 'Begin your path to inner peace',
+          style: CalmTheme.bodyLarge.copyWith(
+            color: CalmTheme.textSecondary,
+          ),
           textAlign: TextAlign.center,
         ),
       ],
@@ -142,38 +119,38 @@ class _AuthScreenState extends State<AuthScreen> {
         icon: const Icon(Icons.account_circle, size: 24, color: Colors.black87),
         label: Text(
           isSignInView ? 'Sign in with Google' : 'Sign up with Google',
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+          style: CalmTheme.bodyLarge.copyWith(
+            fontWeight: FontWeight.w500,
             color: Colors.black87,
           ),
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black87,
+          backgroundColor: CalmTheme.surface,
           elevation: 0,
-          side: const BorderSide(color: Color(0xFFE5E5EA)),
+          side: BorderSide(color: CalmTheme.sage.withOpacity(0.3)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          shadowColor: Colors.black.withOpacity(0.1),
         ),
       ),
     );
   }
 
   Widget _buildDivider() {
-    return const Row(
+    return Row(
       children: [
-        Expanded(child: Divider(color: Color(0xFFE5E5EA))),
+        Expanded(child: Divider(color: CalmTheme.sage.withOpacity(0.3))),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             'OR',
-            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
+            style: CalmTheme.bodyMedium.copyWith(
+              color: CalmTheme.textTertiary,
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
-        Expanded(child: Divider(color: Color(0xFFE5E5EA))),
+        Expanded(child: Divider(color: CalmTheme.sage.withOpacity(0.3))),
       ],
     );
   }
@@ -219,35 +196,28 @@ class _AuthScreenState extends State<AuthScreen> {
     bool obscureText = false,
     String? Function(String?)? validator,
   }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      validator: validator,
-      style: const TextStyle(fontSize: 16),
-      decoration: InputDecoration(
-        hintText: hintText,
-        prefixIcon: Icon(prefixIcon, color: Colors.grey),
-        filled: true,
-        fillColor: const Color(0xFFF8F9FA),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Color(0xFFE5E5EA)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Color(0xFF8B7CF6), width: 2),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Colors.red),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
+    return Container(
+      decoration: CalmTheme.cardDecoration,
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        validator: validator,
+        style: CalmTheme.bodyLarge,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: CalmTheme.bodyLarge.copyWith(
+            color: CalmTheme.textTertiary,
+          ),
+          prefixIcon: Icon(
+            prefixIcon, 
+            color: CalmTheme.sage,
+            size: 20,
+          ),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 16,
+          ),
         ),
       ),
     );
@@ -259,52 +229,19 @@ class _AuthScreenState extends State<AuthScreen> {
       height: 56,
       child: ElevatedButton(
         onPressed: isLoading ? null : _handleEmailAuth,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          elevation: 0,
-          shadowColor: Colors.transparent,
-        ).copyWith(
-          backgroundColor: WidgetStateProperty.all(Colors.transparent),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF8B7CF6), Color(0xFF7C3AED), Color(0xFF6D28D9)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF8B7CF6).withOpacity(0.3),
-                blurRadius: 12,
-                offset: const Offset(0, 6),
+        style: CalmTheme.primaryButton,
+        child: isLoading
+            ? const CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 2,
+              )
+            : Text(
+                isSignInView ? 'Sign In' : 'Create Account',
+                style: CalmTheme.bodyLarge.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ],
-          ),
-          child: Center(
-            child: isLoading
-                ? const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2,
-                    ),
-                  )
-                : Text(
-                    isSignInView ? 'Login' : 'Sign Up',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-          ),
-        ),
       ),
     );
   }
@@ -312,45 +249,20 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget _buildBottomNavigation() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              isSignInView
-                  ? "Don't have an account? "
-                  : "Already have an account? ",
-              style: const TextStyle(color: Colors.grey, fontSize: 16),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  isSignInView = !isSignInView;
-                  _clearForm();
-                });
-              },
-              child: Text(
-                isSignInView ? 'Sign Up' : 'Login',
-                style: const TextStyle(
-                  color: Color(0xFF8B7CF6),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 16),
         TextButton(
           onPressed: () {
-            // Skip authentication for now
-            _navigateToActivities();
+            setState(() {
+              isSignInView = !isSignInView;
+              _clearForm();
+            });
           },
-          child: const Text(
-            'Skip for now',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+          child: Text(
+            isSignInView
+                ? 'Need an account? Sign up'
+                : 'Already have an account? Sign in',
+            style: CalmTheme.bodyLarge.copyWith(
+              color: CalmTheme.primaryGreen,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),
@@ -393,9 +305,32 @@ class _AuthScreenState extends State<AuthScreen> {
   Future<void> _handleGoogleSignIn() async {
     setState(() => isLoading = true);
     try {
-      await _authService.signInWithGoogle();
-      if (mounted) {
-        _navigateToActivities('Successfully signed in with Google!');
+      final user = await _authService.signInWithGoogle();
+      if (mounted && user != null) {
+        // Check if user needs to complete profile setup
+        final needsProfileSetup = _userService.isNewUser() || !await _userService.hasCompletedProfile();
+        
+        if (needsProfileSetup && !isSignInView) {
+          // New user who clicked "Sign up with Google" - go to profile setup
+          _navigateToProfileSetup();
+        } else if (needsProfileSetup && isSignInView) {
+          // Existing user who hasn't completed profile - show message and go to profile
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Please complete your profile setup.'),
+              backgroundColor: CalmTheme.primaryGreen,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfileSetupPage()),
+          );
+        } else {
+          // User has completed profile - go to main app
+          _navigateToActivities('Successfully signed in with Google!');
+        }
       }
     } catch (e) {
       if (mounted) {
@@ -430,7 +365,7 @@ class _AuthScreenState extends State<AuthScreen> {
           displayName: _emailController.text.trim().split('@')[0],
         );
         if (mounted) {
-          _navigateToActivities('Account created successfully!');
+          _navigateToProfileSetup();
         }
       }
     } catch (e) {
@@ -465,6 +400,21 @@ class _AuthScreenState extends State<AuthScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const MainNavigationWrapper()),
+    );
+  }
+
+  void _navigateToProfileSetup() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Account created successfully! Please complete your profile.'),
+        backgroundColor: CalmTheme.primaryGreen,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+    );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfileSetupPage()),
     );
   }
 

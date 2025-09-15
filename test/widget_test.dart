@@ -12,7 +12,7 @@ import 'package:medichealth/main.dart';
 void main() {
   testWidgets('App loads correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MedicHealthApp());
+    await tester.pumpWidget(const MindEaseApp());
 
     // Verify that the app loads with Activities title
     expect(find.text('Activities'), findsOneWidget);

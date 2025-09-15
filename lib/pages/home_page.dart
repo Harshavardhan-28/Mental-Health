@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'breath_training_page.dart';
+import '../theme/calm_theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -66,18 +67,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CalmTheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(CalmTheme.spacingL),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildGreetingSection(),
-              const SizedBox(height: 24),
+              SizedBox(height: CalmTheme.spacingXL),
               _buildAffirmationSection(),
-              const SizedBox(height: 32),
+              SizedBox(height: CalmTheme.spacingXL),
               _buildMoodTimelineSection(),
-              const SizedBox(height: 24),
+              SizedBox(height: CalmTheme.spacingL),
               _buildQuickActionsSection(),
             ],
           ),
@@ -97,165 +99,150 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       greeting = "Good Evening";
     }
 
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Row(
-          children: [
-            const CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.blue,
-              child: Icon(Icons.person, color: Colors.white, size: 30),
+    return Container(
+      decoration: CalmTheme.cardDecoration,
+      padding: EdgeInsets.all(CalmTheme.spacingL),
+      child: Row(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: CalmTheme.sage.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(30),
             ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    greeting,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue[700],
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "How are you feeling today?",
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                ],
-              ),
+            child: Icon(
+              Icons.spa,
+              color: CalmTheme.primaryGreen,
+              size: 30,
             ),
-          ],
-        ),
+          ),
+          SizedBox(width: CalmTheme.spacingM),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  greeting,
+                  style: CalmTheme.headingLarge.copyWith(
+                    color: CalmTheme.primaryGreen,
+                  ),
+                ),
+                SizedBox(height: CalmTheme.spacingXS),
+                Text(
+                  "How are you feeling today?",
+                  style: CalmTheme.bodyLarge.copyWith(
+                    color: CalmTheme.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildAffirmationSection() {
-    return Card(
-      elevation: 4,
-      child: Container(
-        padding: const EdgeInsets.all(24.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          gradient: const LinearGradient(
-            colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Column(
-          children: [
-            AnimatedBuilder(
-              animation: _breathingAnimation,
-              builder: (context, child) {
-                return Transform.scale(
-                  scale: _breathingAnimation.value,
-                  child: Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          Colors.blue[300]!.withOpacity(0.6),
-                          Colors.blue[600]!.withOpacity(0.3),
-                        ],
+    return Container(
+      decoration: CalmTheme.cardDecoration.copyWith(
+        color: CalmTheme.lightGreen.withOpacity(0.3),
+      ),
+      padding: EdgeInsets.all(CalmTheme.spacingXL),
+      child: Column(
+        children: [
+          // Breathing animation with spa icon
+          AnimatedBuilder(
+            animation: _breathingAnimation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _breathingAnimation.value,
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: CalmTheme.sage.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow: [
+                      BoxShadow(
+                        color: CalmTheme.primaryGreen.withOpacity(0.2),
+                        blurRadius: 20,
+                        offset: const Offset(0, 4),
                       ),
-                    ),
-                    child: const Icon(
-                      Icons.favorite,
-                      size: 60,
-                      color: Colors.white,
-                    ),
+                    ],
                   ),
-                );
-              },
+                  child: Icon(
+                    Icons.spa,
+                    color: CalmTheme.primaryGreen,
+                    size: 40,
+                  ),
+                ),
+              );
+            },
+          ),
+          SizedBox(height: CalmTheme.spacingL),
+          Text(
+            _currentAffirmation,
+            style: CalmTheme.headingMedium.copyWith(
+              color: CalmTheme.primaryGreen,
+              height: 1.4,
             ),
-            const SizedBox(height: 20),
-            Text(
-              _currentAffirmation,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: Colors.blue[800],
-                fontStyle: FontStyle.italic,
-              ),
-              textAlign: TextAlign.center,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: CalmTheme.spacingM),
+          Text(
+            "Breathe with the gentle rhythm above",
+            style: CalmTheme.bodyMedium.copyWith(
+              color: CalmTheme.textSecondary,
             ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: () {
-                setState(() {
-                  _currentAffirmation = _affirmations[Random().nextInt(_affirmations.length)];
-                });
-              },
-              icon: const Icon(Icons.refresh),
-              label: const Text('New Affirmation'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[600],
-                foregroundColor: Colors.white,
-              ),
-            ),
-          ],
-        ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildMoodTimelineSection() {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Your Mood Timeline',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue[700],
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    _showMoodPicker();
-                  },
-                  child: const Text('Log Mood'),
-                ),
-              ],
+    return Container(
+      decoration: CalmTheme.cardDecoration,
+      padding: EdgeInsets.all(CalmTheme.spacingL),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Your Mood Journey",
+            style: CalmTheme.headingMedium.copyWith(
+              color: CalmTheme.primaryGreen,
             ),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: _moodEntries.length,
-                itemBuilder: (context, index) {
-                  final entry = _moodEntries[index];
-                  return _buildMoodTimelineItem(entry, index == _moodEntries.length - 1);
-                },
-              ),
+          ),
+          SizedBox(height: CalmTheme.spacingM),
+          Text(
+            "Track how you're feeling over time",
+            style: CalmTheme.bodyMedium.copyWith(
+              color: CalmTheme.textSecondary,
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: CalmTheme.spacingL),
+          // Simple mood visualization with calming design
+          SizedBox(
+            height: 100,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: _moodEntries.length,
+              itemBuilder: (context, index) {
+                final entry = _moodEntries[index];
+                return _buildMoodTimelineItem(entry, index == _moodEntries.length - 1);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildMoodTimelineItem(MoodEntry entry, bool isLatest) {
     return Container(
-      margin: const EdgeInsets.only(right: 12),
+      margin: EdgeInsets.only(right: CalmTheme.spacingM),
       child: Column(
         children: [
           Container(
@@ -264,7 +251,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: _getMoodColor(entry.mood),
-              border: isLatest ? Border.all(color: Colors.blue, width: 3) : null,
+              border: isLatest 
+                ? Border.all(color: CalmTheme.primaryGreen, width: 3) 
+                : null,
+              boxShadow: [
+                BoxShadow(
+                  color: CalmTheme.sage.withOpacity(0.2),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: Icon(
               _getMoodIcon(entry.mood),
@@ -272,13 +268,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               size: 24,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: CalmTheme.spacingXS),
           Text(
             '${entry.date.day}/${entry.date.month}',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-              fontWeight: isLatest ? FontWeight.bold : FontWeight.normal,
+            style: CalmTheme.caption.copyWith(
+              color: CalmTheme.textSecondary,
             ),
           ),
         ],
@@ -287,54 +281,56 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildQuickActionsSection() {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Quick Actions',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Colors.blue[700],
+    return Container(
+      decoration: CalmTheme.cardDecoration,
+      padding: EdgeInsets.all(CalmTheme.spacingL),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Wellness Actions',
+            style: CalmTheme.headingMedium.copyWith(
+              color: CalmTheme.primaryGreen,
+            ),
+          ),
+          SizedBox(height: CalmTheme.spacingM),
+          Text(
+            'Quick access to your favorite activities',
+            style: CalmTheme.bodyMedium.copyWith(
+              color: CalmTheme.textSecondary,
+            ),
+          ),
+          SizedBox(height: CalmTheme.spacingL),
+          Row(
+            children: [
+              Expanded(
+                child: _buildQuickActionButton(
+                  icon: Icons.spa,
+                  label: 'Breathing',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BreathTrainingPage(),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildQuickActionButton(
-                    icon: Icons.air,
-                    label: 'Breathing',
-                    color: Colors.green,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const BreathTrainingPage(),
-                        ),
-                      );
-                    },
-                  ),
+              SizedBox(width: CalmTheme.spacingM),
+              Expanded(
+                child: _buildQuickActionButton(
+                  icon: Icons.self_improvement,
+                  label: 'Chat',
+                  onTap: () {
+                    // Navigate to chatbot via drawer selection
+                    Scaffold.of(context).openDrawer();
+                  },
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _buildQuickActionButton(
-                    icon: Icons.psychology,
-                    label: 'Chat',
-                    color: Colors.purple,
-                    onTap: () {
-                      // Navigate to chatbot via drawer selection
-                      Scaffold.of(context).openDrawer();
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -342,28 +338,45 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget _buildQuickActionButton({
     required IconData icon,
     required String label,
-    required Color color,
     required VoidCallback onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        height: 120, // Fixed height for consistent sizing
+        padding: EdgeInsets.all(CalmTheme.spacingL),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: CalmTheme.sage.withOpacity(0.2),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color.withOpacity(0.3)),
+          border: Border.all(
+            color: CalmTheme.sage.withOpacity(0.3),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: CalmTheme.sage.withOpacity(0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 32, color: color),
-            const SizedBox(height: 8),
+            Icon(
+              icon,
+              color: CalmTheme.primaryGreen,
+              size: 32,
+            ),
+            SizedBox(height: CalmTheme.spacingS),
             Text(
               label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: color,
+              style: CalmTheme.bodyMedium.copyWith(
+                color: CalmTheme.primaryGreen,
+                fontWeight: FontWeight.w500,
               ),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ],
         ),
@@ -373,12 +386,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Color _getMoodColor(int mood) {
     switch (mood) {
-      case 1: return Colors.red;
-      case 2: return Colors.orange;
-      case 3: return Colors.yellow;
-      case 4: return Colors.lightGreen;
-      case 5: return Colors.green;
-      default: return Colors.grey;
+      case 1: return const Color(0xFFD4A574); // Warm brown for sad
+      case 2: return const Color(0xFFE5A85C); // Soft orange for okay
+      case 3: return CalmTheme.sage; // Sage for neutral
+      case 4: return CalmTheme.primaryGreen; // Primary green for good
+      case 5: return const Color(0xFF5D8A66); // Deep green for great
+      default: return CalmTheme.mutedGray;
     }
   }
 
@@ -390,42 +403,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       case 4: return Icons.sentiment_satisfied;
       case 5: return Icons.sentiment_very_satisfied;
       default: return Icons.help;
-    }
-  }
-
-  void _showMoodPicker() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('How are you feeling?'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(5, (index) {
-            final mood = index + 1;
-            return ListTile(
-              leading: Icon(_getMoodIcon(mood), color: _getMoodColor(mood)),
-              title: Text(_getMoodLabel(mood)),
-              onTap: () {
-                setState(() {
-                  _moodEntries.add(MoodEntry(DateTime.now(), mood));
-                });
-                Navigator.pop(context);
-              },
-            );
-          }),
-        ),
-      ),
-    );
-  }
-
-  String _getMoodLabel(int mood) {
-    switch (mood) {
-      case 1: return 'Very Bad';
-      case 2: return 'Bad';
-      case 3: return 'Neutral';
-      case 4: return 'Good';
-      case 5: return 'Very Good';
-      default: return 'Unknown';
     }
   }
 }

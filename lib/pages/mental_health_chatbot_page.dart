@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/calm_theme.dart';
 
 class MentalHealthChatbotPage extends StatefulWidget {
   const MentalHealthChatbotPage({super.key});
@@ -21,7 +22,7 @@ class _MentalHealthChatbotPageState extends State<MentalHealthChatbotPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: CalmTheme.background,
       body: Column(
         children: [
           _buildHeader(),
@@ -36,60 +37,65 @@ class _MentalHealthChatbotPageState extends State<MentalHealthChatbotPage> {
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(CalmTheme.spacingL),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.purple[400]!, Colors.purple[600]!],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(Icons.psychology, color: Colors.purple),
-          ),
-          const SizedBox(width: 12),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Mental Health Assistant',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Your supportive companion',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            onPressed: () => _showChatOptions(),
-            icon: const Icon(Icons.more_vert, color: Colors.white),
+        color: CalmTheme.primaryGreen,
+        boxShadow: [
+          BoxShadow(
+            color: CalmTheme.primaryGreen.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
+      ),
+      child: SafeArea(
+        child: Row(
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: const Icon(
+                Icons.self_improvement,
+                color: Colors.white,
+                size: 28,
+              ),
+            ),
+            SizedBox(width: CalmTheme.spacingM),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Wellness Assistant',
+                    style: CalmTheme.headingMedium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildMessagesList() {
-    return ListView.builder(
-      controller: _scrollController,
-      padding: const EdgeInsets.all(16),
-      itemCount: _messages.length,
-      itemBuilder: (context, index) {
-        return _buildMessageBubble(_messages[index]);
-      },
+    return Container(
+      color: CalmTheme.lightGreen.withOpacity(0.1),
+      child: ListView.builder(
+        controller: _scrollController,
+        padding: EdgeInsets.all(CalmTheme.spacingL),
+        itemCount: _messages.length,
+        itemBuilder: (context, index) {
+          return _buildMessageBubble(_messages[index]);
+        },
+      ),
     );
   }
 
@@ -99,7 +105,7 @@ class _MentalHealthChatbotPageState extends State<MentalHealthChatbotPage> {
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
+        margin: EdgeInsets.only(bottom: CalmTheme.spacingM),
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.8,
         ),
@@ -108,42 +114,61 @@ class _MentalHealthChatbotPageState extends State<MentalHealthChatbotPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (!isUser) ...[
-              const CircleAvatar(
-                radius: 16,
-                backgroundColor: Colors.purple,
-                child: Icon(Icons.psychology, color: Colors.white, size: 16),
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: CalmTheme.sage.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Icon(
+                  Icons.spa,
+                  color: CalmTheme.primaryGreen,
+                  size: 18,
+                ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: CalmTheme.spacingS),
             ],
             Flexible(
               child: Container(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(CalmTheme.spacingM),
                 decoration: BoxDecoration(
-                  color: isUser ? Colors.blue[600] : Colors.white,
+                  color: isUser 
+                    ? CalmTheme.primaryGreen 
+                    : CalmTheme.surface,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 4,
+                      color: CalmTheme.sage.withOpacity(0.1),
+                      blurRadius: 8,
                       offset: const Offset(0, 2),
                     ),
                   ],
                 ),
                 child: Text(
                   message.text,
-                  style: TextStyle(
-                    color: isUser ? Colors.white : Colors.black87,
-                    fontSize: 16,
+                  style: CalmTheme.bodyLarge.copyWith(
+                    color: isUser 
+                      ? Colors.white 
+                      : CalmTheme.textPrimary,
                   ),
                 ),
               ),
             ),
             if (isUser) ...[
-              const SizedBox(width: 8),
-              const CircleAvatar(
-                radius: 16,
-                backgroundColor: Colors.blue,
-                child: Icon(Icons.person, color: Colors.white, size: 16),
+              SizedBox(width: CalmTheme.spacingS),
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: CalmTheme.primaryGreen.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Icon(
+                  Icons.person,
+                  color: CalmTheme.primaryGreen,
+                  size: 18,
+                ),
               ),
             ],
           ],
@@ -154,44 +179,69 @@ class _MentalHealthChatbotPageState extends State<MentalHealthChatbotPage> {
 
   Widget _buildMessageInput() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(CalmTheme.spacingL),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: const Offset(0, -2),
+        color: CalmTheme.surface,
+        border: Border(
+          top: BorderSide(
+            color: CalmTheme.sage.withOpacity(0.3),
+            width: 1,
           ),
-        ],
+        ),
       ),
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _messageController,
-              decoration: InputDecoration(
-                hintText: 'Type your message...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.grey[100],
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
+            child: Container(
+              decoration: BoxDecoration(
+                color: CalmTheme.background,
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(
+                  color: CalmTheme.sage.withOpacity(0.3),
                 ),
               ),
-              onSubmitted: (_) => _sendMessage(),
+              child: TextField(
+                controller: _messageController,
+                decoration: InputDecoration(
+                  hintText: 'Share what\'s on your mind...',
+                  hintStyle: CalmTheme.bodyLarge.copyWith(
+                    color: CalmTheme.textTertiary,
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: CalmTheme.spacingL,
+                    vertical: CalmTheme.spacingM,
+                  ),
+                ),
+                style: CalmTheme.bodyLarge,
+                maxLines: null,
+                textCapitalization: TextCapitalization.sentences,
+              ),
             ),
           ),
-          const SizedBox(width: 8),
-          FloatingActionButton(
-            mini: true,
-            onPressed: _sendMessage,
-            backgroundColor: Colors.purple[600],
-            child: const Icon(Icons.send, color: Colors.white),
+          SizedBox(width: CalmTheme.spacingM),
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: CalmTheme.primaryGreen,
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: CalmTheme.primaryGreen.withOpacity(0.3),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: IconButton(
+              onPressed: _sendMessage,
+              icon: const Icon(
+                Icons.send,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
           ),
         ],
       ),
@@ -248,63 +298,6 @@ class _MentalHealthChatbotPageState extends State<MentalHealthChatbotPage> {
     } else {
       return "Thank you for sharing that with me. Can you tell me more about how you're feeling right now? I'm here to listen and support you.";
     }
-  }
-
-  void _showChatOptions() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.delete),
-              title: const Text('Clear Chat'),
-              onTap: () {
-                setState(() {
-                  _messages.clear();
-                  _addBotMessage("Hello! I'm your mental health assistant. How can I support you today?");
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.help),
-              title: const Text('Help & Tips'),
-              onTap: () {
-                Navigator.pop(context);
-                _showHelpDialog();
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showHelpDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('How I can help'),
-        content: const Text(
-          'I can provide support for:\n\n'
-          '• Anxiety and stress management\n'
-          '• Sleep difficulties\n'
-          '• Mood tracking and support\n'
-          '• Breathing exercises\n'
-          '• General mental wellness tips\n\n'
-          'Remember: I\'m here to support you, but for serious concerns, please consult a mental health professional.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Got it'),
-          ),
-        ],
-      ),
-    );
   }
 
   @override

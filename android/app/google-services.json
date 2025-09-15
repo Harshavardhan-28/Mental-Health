@@ -12,7 +12,20 @@
           "package_name": "com.example.medichealth"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "713345790986-6dje2juap96tk3ug439tnq37lvdaot22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medichealth",
+            "certificate_hash": "93276b2a49131eebd3bf226364ab7b71d2bbd11e"
+          }
+        },
+        {
+          "client_id": "713345790986-g1602kqakgr131m1qnqc451mjgqg477h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA3n5faSf86atpBg1cMY6WtBstBYiJUOFs"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713345790986-g1602kqakgr131m1qnqc451mjgqg477h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import '../pages/auth_screen.dart';
+import '../theme/calm_theme.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -54,7 +55,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       width: _currentPage == index ? 24 : 8,
       height: 8,
       decoration: BoxDecoration(
-        color: _currentPage == index ? const Color(0xFF8B7CF6) : Colors.grey,
+        color: _currentPage == index ? CalmTheme.primaryGreen : CalmTheme.sage.withOpacity(0.5),
         borderRadius: BorderRadius.circular(4),
       ),
     );
@@ -62,7 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildPage1() {
     return Container(
-      color: const Color(0xFFF5F7FA),
+      color: CalmTheme.background,
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
@@ -73,33 +74,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Container(
                 width: 200,
                 height: 200,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF8B7CF6),
+                decoration: BoxDecoration(
+                  color: CalmTheme.primaryGreen,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
-                  Icons.favorite,
+                  Icons.spa,
                   size: 80,
                   color: Colors.white,
                 ),
               ),
               const SizedBox(height: 60),
-              const Text(
+              Text(
                 "Take care\nof your\nMental Health",
-                style: TextStyle(
+                style: CalmTheme.headingLarge.copyWith(
                   fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: CalmTheme.textPrimary,
                   height: 1.2,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 "Your safe space to reduce stress and feel better.",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
+                style: CalmTheme.bodyLarge.copyWith(
+                  color: CalmTheme.textSecondary,
                   height: 1.4,
                 ),
                 textAlign: TextAlign.center,
@@ -116,7 +115,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF8B7CF6),
+                    backgroundColor: CalmTheme.primaryGreen,
                     foregroundColor: Colors.white,
                     elevation: 4,
                     shape: RoundedRectangleBorder(
@@ -142,7 +141,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildPage2() {
     return Container(
-      color: const Color(0xFF8B7CF6),
+      color: CalmTheme.primaryGreen,
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
@@ -157,28 +156,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.chat_bubble_outline,
+                child: Icon(
+                  Icons.self_improvement,
                   size: 80,
-                  color: Color(0xFF8B7CF6),
+                  color: CalmTheme.primaryGreen,
                 ),
               ),
               const SizedBox(height: 60),
-              const Text(
+              Text(
                 "Get the help\nyou need",
-                style: TextStyle(
+                style: CalmTheme.headingLarge.copyWith(
                   fontSize: 32,
-                  fontWeight: FontWeight.bold,
                   color: Colors.white,
                   height: 1.2,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 "Talk to our supportive chatbot and explore activities that calm you.",
-                style: TextStyle(
-                  fontSize: 16,
+                style: CalmTheme.bodyLarge.copyWith(
                   color: Colors.white70,
                   height: 1.4,
                 ),
@@ -197,7 +194,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF8B7CF6),
+                    foregroundColor: CalmTheme.primaryGreen,
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(28),
@@ -222,7 +219,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildPage3() {
     return Container(
-      color: const Color(0xFF1F2937),
+      color: CalmTheme.sage,
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
@@ -237,28 +234,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.self_improvement,
+                child: Icon(
+                  Icons.nature_people,
                   size: 80,
-                  color: Color(0xFF1F2937),
+                  color: CalmTheme.primaryGreen,
                 ),
               ),
               const SizedBox(height: 60),
-              const Text(
+              Text(
                 "Self care\ncomes first",
-                style: TextStyle(
+                style: CalmTheme.headingLarge.copyWith(
                   fontSize: 32,
-                  fontWeight: FontWeight.bold,
                   color: Colors.white,
                   height: 1.2,
                 ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
-              const Text(
+              Text(
                 "Learn breathing techniques, journaling, and mindful practices.",
-                style: TextStyle(
-                  fontSize: 16,
+                style: CalmTheme.bodyLarge.copyWith(
                   color: Colors.white70,
                   height: 1.4,
                 ),
@@ -277,7 +272,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: Colors.black87,
+                    foregroundColor: CalmTheme.primaryGreen,
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(28),
