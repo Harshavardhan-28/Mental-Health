@@ -3,6 +3,7 @@ import '../pages/home_page.dart';
 import '../pages/activities_page.dart';
 import '../pages/mental_health_chatbot_page.dart';
 import '../pages/activity_agent_page.dart';
+import '../pages/counselor_booking_page.dart';
 import '../theme/calm_theme.dart';
 
 class MainNavigationWrapper extends StatefulWidget {
@@ -20,25 +21,13 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
     const ActivitiesPage(),
     const MentalHealthChatbotPage(),
     const ActivityAgentPage(),
+    const CounselorBookingPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CalmTheme.background,
-      appBar: AppBar(
-        title: Text(
-          'MindEase',
-          style: CalmTheme.headingLarge.copyWith(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: CalmTheme.primaryGreen,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
       drawer: _buildSideNavigation(),
       body: _pages[_selectedIndex],
     );
@@ -98,6 +87,11 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
             icon: Icons.nature_people,
             title: 'Activity Guide',
             index: 3,
+          ),
+          _buildDrawerItem(
+            icon: Icons.psychology,
+            title: 'Book Counselor',
+            index: 4,
           ),
           Divider(color: CalmTheme.sage.withOpacity(0.3)),
           ListTile(

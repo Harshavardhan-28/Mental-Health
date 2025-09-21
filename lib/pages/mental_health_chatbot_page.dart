@@ -22,63 +22,56 @@ class _MentalHealthChatbotPageState extends State<MentalHealthChatbotPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CalmTheme.background,
-      body: Column(
-        children: [
-          _buildHeader(),
-          Expanded(
-            child: _buildMessagesList(),
-          ),
-          _buildMessageInput(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      padding: EdgeInsets.all(CalmTheme.spacingL),
-      decoration: BoxDecoration(
-        color: CalmTheme.primaryGreen,
-        boxShadow: [
-          BoxShadow(
-            color: CalmTheme.primaryGreen.withOpacity(0.2),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Row(
+      backgroundColor: CalmTheme.lightGreen.withOpacity(0.1),
+      body: SafeArea(
+        child: Column(
           children: [
+            // Header with hamburger icon integrated into chat header
             Container(
-              width: 50,
-              height: 50,
+              padding: EdgeInsets.all(CalmTheme.spacingL),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(25),
+                color: CalmTheme.primaryGreen,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
-              child: const Icon(
-                Icons.self_improvement,
-                color: Colors.white,
-                size: 28,
-              ),
-            ),
-            SizedBox(width: CalmTheme.spacingM),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
+                  IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    icon: const Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const Icon(
+                    Icons.psychology,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 12),
                   Text(
                     'Wellness Assistant',
                     style: CalmTheme.headingMedium.copyWith(
                       color: Colors.white,
-                      fontWeight: FontWeight.w500,
                     ),
                   ),
+                  const Spacer(),
                 ],
               ),
             ),
+            Expanded(
+              child: _buildMessagesList(),
+            ),
+            _buildMessageInput(),
           ],
         ),
       ),

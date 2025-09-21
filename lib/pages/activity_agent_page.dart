@@ -23,72 +23,60 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CalmTheme.background,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(CalmTheme.spacingL),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(),
-            SizedBox(height: CalmTheme.spacingXL),
-            _buildMoodAssessment(),
-            SizedBox(height: CalmTheme.spacingXL),
-            _buildRecommendations(),
-            SizedBox(height: CalmTheme.spacingXL),
-            _buildActivityProgress(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      decoration: CalmTheme.cardDecoration,
-      padding: EdgeInsets.all(CalmTheme.spacingXL),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+      backgroundColor: CalmTheme.lightGreen.withOpacity(0.1),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(CalmTheme.spacingM),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: CalmTheme.sage.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Icon(
-                  Icons.nature_people,
-                  color: CalmTheme.primaryGreen,
-                  size: 30,
-                ),
-              ),
-              SizedBox(width: CalmTheme.spacingL),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              // Header with hamburger icon
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Row(
                   children: [
-                    Text(
-                      'Activity Guide',
-                      style: CalmTheme.headingLarge.copyWith(
-                        color: CalmTheme.primaryGreen,
+                    IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: Icon(
+                        Icons.menu,
+                        color: CalmTheme.textPrimary,
+                        size: 24,
                       ),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
                     ),
+                    const Spacer(),
                   ],
                 ),
               ),
+              _buildMoodAssessment(),
+              SizedBox(height: CalmTheme.spacingL),
+              _buildRecommendations(),
+              SizedBox(height: CalmTheme.spacingL),
+              _buildActivityProgress(),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
 
   Widget _buildMoodAssessment() {
     return Container(
-      decoration: CalmTheme.cardDecoration,
-      padding: EdgeInsets.all(CalmTheme.spacingL),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF0F0E8), // Eggshell white
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(CalmTheme.spacingM),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -98,11 +86,11 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
               color: CalmTheme.primaryGreen,
             ),
           ),
-          SizedBox(height: CalmTheme.spacingL),
+          SizedBox(height: CalmTheme.spacingM),
           _buildMoodSelector(),
-          SizedBox(height: CalmTheme.spacingL),
+          SizedBox(height: CalmTheme.spacingM),
           _buildStressLevelSelector(),
-          SizedBox(height: CalmTheme.spacingL),
+          SizedBox(height: CalmTheme.spacingM),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -114,7 +102,7 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
                       'Recommendations updated!',
                       style: CalmTheme.bodyLarge.copyWith(color: Colors.white),
                     ),
-                    backgroundColor: CalmTheme.primaryGreen,
+                    backgroundColor: const Color(0xFF6B8E6B),
                     behavior: SnackBarBehavior.floating,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -169,9 +157,9 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
                   _currentMood = mood;
                 });
               },
-              backgroundColor: CalmTheme.sage.withOpacity(0.2),
+              backgroundColor: const Color.fromARGB(255, 108, 121, 94).withOpacity(0.2),
               selectedColor: CalmTheme.primaryGreen,
-              checkmarkColor: Colors.white,
+              showCheckmark: false,
               side: BorderSide(
                 color: _currentMood == mood 
                   ? CalmTheme.primaryGreen 
@@ -218,7 +206,7 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
               },
               backgroundColor: CalmTheme.sage.withOpacity(0.2),
               selectedColor: CalmTheme.primaryGreen,
-              checkmarkColor: Colors.white,
+              showCheckmark: false,
               side: BorderSide(
                 color: _stressLevel == level 
                   ? CalmTheme.primaryGreen 
@@ -233,18 +221,28 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
 
   Widget _buildRecommendations() {
     return Container(
-      decoration: CalmTheme.cardDecoration,
-      padding: EdgeInsets.all(CalmTheme.spacingL),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF0F0E8), // Eggshell white
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(CalmTheme.spacingM),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Wellness Activities',
             style: CalmTheme.headingMedium.copyWith(
-              color: CalmTheme.primaryGreen,
+              color: const Color.fromARGB(255, 107, 142, 107),
             ),
           ),
-          SizedBox(height: CalmTheme.spacingL),
+          SizedBox(height: CalmTheme.spacingM),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -259,41 +257,58 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
   }
 
   Widget _buildRecommendationCard(ActivityRecommendation recommendation) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
+    return Container(
+      margin: EdgeInsets.only(bottom: CalmTheme.spacingS),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 238, 241, 235),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(CalmTheme.spacingM),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: recommendation.color.withOpacity(0.2),
+                Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: recommendation.color.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
                   child: Icon(
                     recommendation.icon,
                     color: recommendation.color,
-                    size: 20,
+                    size: 18,
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: CalmTheme.spacingM),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         recommendation.title,
-                        style: const TextStyle(
+                        style: CalmTheme.headingMedium.copyWith(
+                          color: CalmTheme.textPrimary,
                           fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                          fontSize: 15,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: CalmTheme.spacingXS),
                       Text(
                         recommendation.description,
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 14,
+                        style: CalmTheme.bodyMedium.copyWith(
+                          color: CalmTheme.textSecondary,
+                          fontSize: 13,
                         ),
                       ),
                     ],
@@ -301,43 +316,71 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: CalmTheme.spacingM),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Row(
+                Flexible(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.timer, size: 16, color: Colors.grey[600]),
-                      const SizedBox(width: 4),
-                      Text(
-                        recommendation.duration,
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12,
-                        ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.timer,
+                            size: 16,
+                            color: CalmTheme.textSecondary,
+                          ),
+                          SizedBox(width: CalmTheme.spacingXS),
+                          Flexible(
+                            child: Text(
+                              recommendation.duration,
+                              style: CalmTheme.caption.copyWith(
+                                color: CalmTheme.textSecondary,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 16),
-                      Icon(Icons.local_fire_department, size: 16, color: Colors.grey[600]),
-                      const SizedBox(width: 4),
-                      Text(
-                        recommendation.intensity,
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12,
-                        ),
+                      SizedBox(height: CalmTheme.spacingXS),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.local_fire_department,
+                            size: 16,
+                            color: CalmTheme.textSecondary,
+                          ),
+                          SizedBox(width: CalmTheme.spacingXS),
+                          Flexible(
+                            child: Text(
+                              recommendation.intensity,
+                              style: CalmTheme.caption.copyWith(
+                                color: CalmTheme.textSecondary,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
+                SizedBox(width: CalmTheme.spacingM),
                 ElevatedButton(
                   onPressed: () => _startActivity(recommendation),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: recommendation.color,
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(60, 36),
+                  style: CalmTheme.primaryButton.copyWith(
+                    backgroundColor: MaterialStateProperty.all(recommendation.color),
+                    minimumSize: MaterialStateProperty.all(const Size(80, 36)),
                   ),
-                  child: const Text('Start'),
+                  child: Text(
+                    'Start',
+                    style: CalmTheme.bodyMedium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -349,8 +392,18 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
 
   Widget _buildActivityProgress() {
     return Container(
-      decoration: CalmTheme.cardDecoration,
-      padding: EdgeInsets.all(CalmTheme.spacingL),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF0F0E8), // Eggshell white
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(CalmTheme.spacingM),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -360,14 +413,14 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
               color: CalmTheme.primaryGreen,
             ),
           ),
-          SizedBox(height: CalmTheme.spacingL),
+          SizedBox(height: CalmTheme.spacingM),
           _buildProgressItem('Breathing Exercises', 2, 3, CalmTheme.primaryGreen),
           _buildProgressItem('Meditation Sessions', 1, 2, CalmTheme.sage),
           _buildProgressItem('Physical Activity', 0, 1, CalmTheme.sage),
-          SizedBox(height: CalmTheme.spacingL),
+          SizedBox(height: CalmTheme.spacingM),
           LinearProgressIndicator(
             value: 0.6,
-            backgroundColor: CalmTheme.sage.withOpacity(0.3),
+            backgroundColor: const Color.fromARGB(255, 156, 175, 136).withOpacity(0.3),
             valueColor: AlwaysStoppedAnimation<Color>(CalmTheme.primaryGreen),
           ),
           SizedBox(height: CalmTheme.spacingS),
@@ -384,18 +437,18 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
 
   Widget _buildProgressItem(String title, int completed, int target, Color color) {
     return Padding(
-      padding: EdgeInsets.only(bottom: CalmTheme.spacingM),
+      padding: EdgeInsets.only(bottom: CalmTheme.spacingS),
       child: Row(
         children: [
           Container(
-            width: 12,
-            height: 12,
+            width: 10,
+            height: 10,
             decoration: BoxDecoration(
               color: color,
               shape: BoxShape.circle,
             ),
           ),
-          SizedBox(width: CalmTheme.spacingM),
+          SizedBox(width: CalmTheme.spacingS),
           Expanded(
             child: Text(
               title,
@@ -428,7 +481,7 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
           duration: '5-10 min',
           intensity: 'Low',
           icon: Icons.air,
-          color: Colors.blue,
+          color: const Color(0xFF8FBC8F), // Sky blue
           activityType: 'breathing',
         ));
       }
@@ -440,7 +493,7 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
           duration: '10-15 min',
           intensity: 'Low',
           icon: Icons.self_improvement,
-          color: Colors.purple,
+          color: const Color(0xFF8FBC8F), // Medium purple
           activityType: 'meditation',
         ));
       }
@@ -452,7 +505,7 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
           duration: '5 min',
           intensity: 'Low',
           icon: Icons.book,
-          color: Colors.orange,
+          color: const Color(0xFF8FBC8F) ,// Plum
           activityType: 'journal',
         ));
       }
@@ -464,7 +517,7 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
           duration: '15-20 min',
           intensity: 'Medium',
           icon: Icons.fitness_center,
-          color: Colors.green,
+          color: const Color(0xFF8FBC8F), // Light sea green
           activityType: 'exercise',
         ));
       }
@@ -476,7 +529,7 @@ class _ActivityAgentPageState extends State<ActivityAgentPage> {
         duration: '10-12 min',
         intensity: 'Low',
         icon: Icons.spa,
-        color: Colors.teal,
+        color: const Color(0xFF8FBC8F), // Dark sea green
         activityType: 'relaxation',
       ));
     });

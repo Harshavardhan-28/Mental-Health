@@ -8,14 +8,35 @@ class ActivitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CalmTheme.background,
+      backgroundColor: const Color.fromARGB(255, 243, 244, 243),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(CalmTheme.spacingL),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Simplified header
+              // Header with hamburger icon
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: Icon(
+                        Icons.menu,
+                        color: CalmTheme.textPrimary,
+                        size: 24,
+                      ),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ),
+              // Page title
               Text(
                 'Activities',
                 style: CalmTheme.displayLarge.copyWith(
@@ -23,7 +44,7 @@ class ActivitiesPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: CalmTheme.spacingXL),
-              
+
               // Start activity now button
               Container(
                 width: double.infinity,
@@ -54,13 +75,7 @@ class ActivitiesPage extends StatelessWidget {
                         horizontal: CalmTheme.spacingL,
                       ),
                       child: Row(
-                        children: [
-                          Icon(
-                            Icons.spa,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                          SizedBox(width: CalmTheme.spacingM),
+                        children: [                          
                           Text(
                             'Begin wellness activity',
                             style: CalmTheme.bodyLarge.copyWith(
@@ -88,7 +103,7 @@ class ActivitiesPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: CalmTheme.spacingXXL),
-              
+
               // Today's summary
               Text(
                 "Today's Activities",
@@ -97,54 +112,7 @@ class ActivitiesPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: CalmTheme.spacingM),
-              
-              // Current mood section - 3 in a row
-              Container(
-                decoration: CalmTheme.cardDecoration,
-                padding: EdgeInsets.all(CalmTheme.spacingL),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'How are you feeling?',
-                      style: CalmTheme.bodyLarge.copyWith(
-                        color: CalmTheme.textPrimary,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: CalmTheme.spacingM),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildMoodItem(
-                            icon: Icons.sentiment_very_satisfied,
-                            label: 'Great',
-                            color: const Color(0xFF5D8A66),
-                          ),
-                        ),
-                        SizedBox(width: CalmTheme.spacingM),
-                        Expanded(
-                          child: _buildMoodItem(
-                            icon: Icons.sentiment_satisfied,
-                            label: 'Good',
-                            color: CalmTheme.primaryGreen,
-                          ),
-                        ),
-                        SizedBox(width: CalmTheme.spacingM),
-                        Expanded(
-                          child: _buildMoodItem(
-                            icon: Icons.sentiment_neutral,
-                            label: 'Okay',
-                            color: CalmTheme.sage,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: CalmTheme.spacingL),
-              
+
               // Activity items
               Expanded(
                 child: ListView(
@@ -152,7 +120,7 @@ class ActivitiesPage extends StatelessWidget {
                     _buildActivityItem(
                       icon: Icons.nature_people,
                       title: 'Mindful Walking',
-                      subtitle: '3h 12min',
+                      subtitle: '10 min',
                       color: CalmTheme.primaryGreen,
                       isCompleted: true,
                     ),
@@ -174,7 +142,7 @@ class ActivitiesPage extends StatelessWidget {
                     _buildActivityItem(
                       icon: Icons.self_improvement,
                       title: 'Meditation',
-                      subtitle: '2h 12min',
+                      subtitle: '5 min',
                       color: const Color(0xFF5D8A66),
                       isCompleted: true,
                     ),
@@ -184,40 +152,6 @@ class ActivitiesPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildMoodItem({
-    required IconData icon,
-    required String label,
-    required Color color,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(CalmTheme.spacingM),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: color.withOpacity(0.3),
-        ),
-      ),
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            color: color,
-            size: 32,
-          ),
-          SizedBox(height: CalmTheme.spacingXS),
-          Text(
-            label,
-            style: CalmTheme.bodyMedium.copyWith(
-              color: color,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
       ),
     );
   }

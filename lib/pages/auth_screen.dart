@@ -39,15 +39,15 @@ class _AuthScreenState extends State<AuthScreen> {
             children: [
               const SizedBox(height: 48),
               _buildHeader(),
+              const SizedBox(height: 40),
+              _buildSocialLoginButtons(),
               const SizedBox(height: 32),
-              _buildGoogleSignInButton(),
-              const SizedBox(height: 28),
               _buildDivider(),
-              const SizedBox(height: 28),
-              _buildForm(),
+              const SizedBox(height: 32),
+              _buildEmailPasswordForm(),
+              const SizedBox(height: 24),
+              _buildSignInButton(),
               const SizedBox(height: 20),
-              _buildSubmitButton(),
-              const SizedBox(height: 28),
               _buildBottomNavigation(),
               const SizedBox(height: 32),
             ],
@@ -60,7 +60,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget _buildHeader() {
     return Column(
       children: [
-        // Spa icon for wellness
+        // Clover/shamrock icon
         Container(
           width: 80,
           height: 80,
@@ -76,33 +76,26 @@ class _AuthScreenState extends State<AuthScreen> {
             ],
           ),
           child: Icon(
-            Icons.spa,
+            Icons.eco, // Using eco icon as clover substitute
             size: 40,
             color: CalmTheme.primaryGreen,
           ),
         ),
-        const SizedBox(height: 24),
-        // Calming app title
+        const SizedBox(height: 32),
         Text(
-          'MindEase',
-          style: CalmTheme.displayLarge.copyWith(
-            color: CalmTheme.primaryGreen,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          isSignInView ? 'Welcome Back' : 'Join Us',
+          "Let's Get Started!",
           style: CalmTheme.headingLarge.copyWith(
             color: CalmTheme.textPrimary,
+            fontWeight: FontWeight.w600,
+            fontSize: 28,
           ),
         ),
         const SizedBox(height: 8),
         Text(
-          isSignInView
-              ? 'Continue your wellness journey'
-              : 'Begin your path to inner peace',
+          "Let's dive in into your account",
           style: CalmTheme.bodyLarge.copyWith(
             color: CalmTheme.textSecondary,
+            fontSize: 16,
           ),
           textAlign: TextAlign.center,
         ),
@@ -110,24 +103,56 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  Widget _buildGoogleSignInButton() {
+  Widget _buildSocialLoginButtons() {
+    return Column(
+      children: [
+        // Google Sign In
+        _buildSocialButton(
+          icon: Icons.account_circle,
+          label: 'Continue with Google',
+          onPressed: _handleGoogleSignIn,
+          backgroundColor: Colors.white,
+          textColor: Colors.black87,
+          borderColor: CalmTheme.sage.withOpacity(0.3),
+        ),
+        const SizedBox(height: 16),
+        // Facebook Sign In
+        _buildSocialButton(
+          icon: Icons.facebook,
+          label: 'Continue with Facebook',
+          onPressed: _handleFacebookSignIn,
+          backgroundColor: const Color(0xFF1877F2),
+          textColor: Colors.white,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSocialButton({
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+    required Color backgroundColor,
+    required Color textColor,
+    Color? borderColor,
+  }) {
     return SizedBox(
       width: double.infinity,
       height: 56,
       child: ElevatedButton.icon(
-        onPressed: isLoading ? null : _handleGoogleSignIn,
-        icon: const Icon(Icons.account_circle, size: 24, color: Colors.black87),
+        onPressed: isLoading ? null : onPressed,
+        icon: Icon(icon, size: 20, color: textColor),
         label: Text(
-          isSignInView ? 'Sign in with Google' : 'Sign up with Google',
+          label,
           style: CalmTheme.bodyLarge.copyWith(
             fontWeight: FontWeight.w500,
-            color: Colors.black87,
+            color: textColor,
           ),
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: CalmTheme.surface,
+          backgroundColor: backgroundColor,
           elevation: 0,
-          side: BorderSide(color: CalmTheme.sage.withOpacity(0.3)),
+          side: borderColor != null ? BorderSide(color: borderColor) : null,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -155,7 +180,7 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  Widget _buildForm() {
+  Widget _buildEmailPasswordForm() {
     return Form(
       key: _formKey,
       child: Column(
@@ -223,7 +248,7 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  Widget _buildSubmitButton() {
+  Widget _buildSignInButton() {
     return SizedBox(
       width: double.infinity,
       height: 56,
@@ -247,8 +272,15 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Widget _buildBottomNavigation() {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Text(
+          isSignInView ? 'Need an account? ' : 'Already have an account? ',
+          style: CalmTheme.bodyMedium.copyWith(
+            color: CalmTheme.textSecondary,
+          ),
+        ),
         TextButton(
           onPressed: () {
             setState(() {
@@ -257,12 +289,10 @@ class _AuthScreenState extends State<AuthScreen> {
             });
           },
           child: Text(
-            isSignInView
-                ? 'Need an account? Sign up'
-                : 'Already have an account? Sign in',
-            style: CalmTheme.bodyLarge.copyWith(
+            isSignInView ? 'Sign up' : 'Sign in',
+            style: CalmTheme.bodyMedium.copyWith(
               color: CalmTheme.primaryGreen,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
@@ -301,6 +331,55 @@ class _AuthScreenState extends State<AuthScreen> {
     return null;
   }
 
+  // Email authentication handler
+  Future<void> _handleEmailAuth() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => isLoading = true);
+    try {
+      if (isSignInView) {
+        await _authService.signInWithEmail(
+          _emailController.text.trim(),
+          _passwordController.text,
+        );
+        if (mounted) {
+          _navigateToActivities('Successfully signed in!');
+        }
+      } else {
+        await _authService.signUpWithEmail(
+          _emailController.text.trim(),
+          _passwordController.text,
+          displayName: _emailController.text.trim().split('@')[0],
+        );
+        if (mounted) {
+          _navigateToProfileSetup();
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        _showError(e.toString());
+      }
+    } finally {
+      if (mounted) {
+        setState(() => isLoading = false);
+      }
+    }
+  }
+
+  void _clearForm() {
+    _emailController.clear();
+    _passwordController.clear();
+    _confirmPasswordController.clear();
+    _formKey.currentState?.reset();
+  }
+
+  // Social sign-in handlers
+  Future<void> _handleFacebookSignIn() async {
+    // Placeholder for Facebook sign-in implementation
+    _showError('Facebook sign-in not implemented yet');
+  }
+
+  // Validation methods
   // Action handlers - FIXED VERSIONS
   Future<void> _handleGoogleSignIn() async {
     setState(() => isLoading = true);
@@ -341,49 +420,6 @@ class _AuthScreenState extends State<AuthScreen> {
         setState(() => isLoading = false);
       }
     }
-  }
-
-  Future<void> _handleEmailAuth() async {
-    if (!_formKey.currentState!.validate()) return;
-
-    setState(() => isLoading = true);
-    try {
-      if (isSignInView) {
-        // Fixed: Using positional parameters
-        await _authService.signInWithEmail(
-          _emailController.text.trim(),
-          _passwordController.text,
-        );
-        if (mounted) {
-          _navigateToActivities('Successfully signed in!');
-        }
-      } else {
-        // Fixed: Using positional parameters with named displayName
-        await _authService.signUpWithEmail(
-          _emailController.text.trim(),
-          _passwordController.text,
-          displayName: _emailController.text.trim().split('@')[0],
-        );
-        if (mounted) {
-          _navigateToProfileSetup();
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        _showError(e.toString());
-      }
-    } finally {
-      if (mounted) {
-        setState(() => isLoading = false);
-      }
-    }
-  }
-
-  void _clearForm() {
-    _emailController.clear();
-    _passwordController.clear();
-    _confirmPasswordController.clear();
-    _formKey.currentState?.reset();
   }
 
   void _navigateToActivities([String? message]) {
