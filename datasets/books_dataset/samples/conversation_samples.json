@@ -1,0 +1,94 @@
+{
+  "conversation_samples": [
+    {
+      "conversation_id": "conv_001",
+      "user_query": "I'm struggling with my identity as a teenager. I don't know who I am or what I want to do with my life.",
+      "relevant_chunks_retrieved": [
+        {
+          "chunk_id": "papalia_c45",
+          "relevance_score": 0.92,
+          "content_preview": "during adolescence, identity development becomes a central task as teenagers begin to explore who they are..."
+        },
+        {
+          "chunk_id": "lifespan_c34", 
+          "relevance_score": 0.88,
+          "content_preview": "erikson's identity versus role confusion stage involves experimenting with different roles and values..."
+        }
+      ],
+      "aura_response": "What you're experiencing is completely normal and actually a healthy part of adolescent development. According to developmental psychology research, identity formation is one of the central tasks of adolescence. Erik Erikson called this the 'identity versus role confusion' stage, where exploring different aspects of yourself is not only normal but necessary for healthy development. This process involves trying out different roles, values, and beliefs to discover who you truly are. Remember, identity development is a journey, not a destination, and it's okay to feel uncertain as you explore different possibilities.",
+      "psychological_concepts_used": [
+        "erikson_identity_development",
+        "adolescent_identity_formation", 
+        "identity_vs_role_confusion"
+      ]
+    },
+    {
+      "conversation_id": "conv_002",
+      "user_query": "My 4-year-old seems very self-centered and can't understand other people's perspectives. Is this normal?",
+      "relevant_chunks_retrieved": [
+        {
+          "chunk_id": "santrock_c123",
+          "relevance_score": 0.89,
+          "content_preview": "piaget's preoperational stage, occurring roughly between ages 2 and 7, is characterized by egocentric thinking..."
+        },
+        {
+          "chunk_id": "papalia_c78",
+          "relevance_score": 0.86,
+          "content_preview": "egocentrism in early childhood is a normal developmental phase where children struggle to see other perspectives..."
+        }
+      ],
+      "aura_response": "This is completely normal for a 4-year-old! What you're observing is called 'egocentrism,' which is a natural part of cognitive development during early childhood. According to Jean Piaget's theory, children between ages 2 and 7 are in the 'preoperational stage' where they naturally think from their own perspective and have difficulty understanding that others might see things differently. This isn't selfishness in the adult sense - it's simply how their developing brain works. Around age 6-7, children typically begin to develop 'theory of mind' and can better understand other people's thoughts and feelings. For now, you can help by gently pointing out other perspectives: 'How do you think your sister feels when...' but don't expect them to fully grasp it yet.",
+      "psychological_concepts_used": [
+        "piaget_preoperational_stage",
+        "childhood_egocentrism",
+        "theory_of_mind_development"
+      ]
+    },
+    {
+      "conversation_id": "conv_003", 
+      "user_query": "I worry that my difficult relationship with my parents in childhood is affecting my ability to form close relationships now.",
+      "relevant_chunks_retrieved": [
+        {
+          "chunk_id": "lifespan_c67",
+          "relevance_score": 0.94,
+          "content_preview": "attachment theory explains how early emotional bonds between caregivers affect psychological development throughout life..."
+        },
+        {
+          "chunk_id": "papalia_c56",
+          "relevance_score": 0.87,
+          "content_preview": "insecure attachment patterns formed in childhood can influence relationship patterns in adulthood..."
+        }
+      ],
+      "aura_response": "Your insight about the connection between early relationships and current patterns shows great self-awareness. Attachment theory, developed by John Bowlby and Mary Ainsworth, confirms that early emotional bonds with caregivers do indeed influence our relationship patterns throughout life. If you experienced inconsistent or unresponsive caregiving, you might have developed what's called an 'insecure attachment style.' However, it's important to know that attachment patterns aren't fixed - they can change through healing relationships, therapy, and conscious effort. Many people successfully develop more secure relationship patterns in adulthood, even after difficult childhoods. Understanding these patterns is actually the first step toward changing them. Would you like to explore what specific relationship challenges you're noticing?",
+      "psychological_concepts_used": [
+        "attachment_theory",
+        "insecure_attachment_patterns",
+        "adult_relationship_development"
+      ]
+    }
+  ],
+  "query_processing_pipeline": {
+    "step_1": "User input received",
+    "step_2": "Query converted to vector embedding using Gemini",
+    "step_3": "Semantic search against 1200+ psychology chunks in TiDB",
+    "step_4": "Top 3-5 most relevant chunks retrieved (similarity > 0.8)",
+    "step_5": "RAG system provides chunks to AURA agent",
+    "step_6": "AURA synthesizes evidence-based response",
+    "step_7": "Response delivered with empathy and psychological expertise"
+  },
+  "metadata": {
+    "total_sample_conversations": 3,
+    "average_retrieval_relevance": 0.89,
+    "response_generation_model": "gemini-2.5-pro",
+    "psychological_frameworks_covered": [
+      "erikson_psychosocial_development",
+      "piaget_cognitive_development", 
+      "bowlby_ainsworth_attachment_theory"
+    ],
+    "conversation_topics": [
+      "adolescent_identity_crisis",
+      "early_childhood_development_concerns",
+      "adult_attachment_relationship_issues"
+    ]
+  }
+}

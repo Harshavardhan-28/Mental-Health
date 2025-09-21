@@ -1,0 +1,7 @@
+# requirements.txt
+google-adk
+python-dotenv
+google-generativeai
+tidb-vector
+pymysql
+pytz
